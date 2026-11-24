@@ -1,46 +1,77 @@
-# Maternal Care Patient Assessment
+# QA Bootcamp Week 2 Starter
 
-A web application for registering patients, recording visits, collecting assessments, and classifying maternal health risk with a trained machine learning model.
+This is the starting point for Week 2 of the QA bootcamp. During the week you will use it to practise:
 
-## Technology
+- TypeScript
+- Playwright (UI testing)
+- Postman (API testing)
+- The Toolshop REST API
 
-- **Frontend:** React, TypeScript, and Vite
-- **Backend:** Python and FastAPI
-- **Database:** PostgreSQL
-- **Machine learning:** scikit-learn K-nearest neighbors (KNN)
-- **Training data:** UCI Maternal Health Risk dataset
+There are no tests in this repo. You will write them during the week.
 
-## API approach
+## Prerequisites
 
-I implemented a custom REST API with FastAPI and PostgreSQL instead of consuming the demo APIs from the Postman collection.
+Install these before you start:
 
-The API handles patient registration, visit vitals, assessment forms, patient reports, and maternal health risk predictions.
+- [Node.js](https://nodejs.org/) (the current LTS version)
+- [Git](https://git-scm.com/)
+- [VS Code](https://code.visualstudio.com/)
 
-## Patient workflow
+## Setup
 
-1. Register each patient once.
-2. Select a patient from the list to start a visit.
-3. Record the visit date, height, and weight. The API calculates BMI.
-4. The BMI determines which assessment form is shown:
-   - BMI less than or equal to 25: General Assessment
-   - BMI greater than 25: Overweight Assessment
-5. After the assessment is saved, return to the patient list.
+Run these steps in order from a terminal.
 
-Patients can have multiple visits on different dates. The list shows each patient once with their latest visit’s BMI status. Use the visit-date filter to view a patient’s record for a specific visit date.
+1. Clone the repo and open the folder:
 
-## BMI status
+   ```bash
+   git clone <repo-url>
+   cd qa-bootcamp-week2-starter
+   ```
 
-The patient report classifies BMI as:
+2. Install the dependencies:
 
-- **Underweight:** less than 18.5
-- **Normal:** 18.5 to less than 25
-- **Overweight:** 25 or greater
+   ```bash
+   npm install
+   ```
 
-## Maternal health risk classification
+3. Install the Chromium browser for Playwright:
 
-The model is trained by `services/api/app/ml/train_model.py` using the UCI Maternal Health Risk dataset. It uses a scikit-learn pipeline with feature scaling and a KNN classifier.
+   ```bash
+   npx playwright install chromium
+   ```
 
-The prediction endpoint is:
+4. Copy `.env.example` to `.env`:
 
-```http
-POST /risk/predict
+   ```bash
+   cp .env.example .env
+   ```
+
+   `.env` already contains the Toolshop website URL (`TOOLSHOP_URL`) and the Toolshop API URL (`TOOLSHOP_API_URL`). Only change them if your trainer gives you different URLs.
+
+5. Check that your setup works:
+
+   ```bash
+   npm run check
+   ```
+
+   This sends a GET request to the Toolshop API's `/products` endpoint (no login needed). If everything is set up correctly, it prints your Node version, the HTTP status (200), the number of products, and a last line that says `PASS`.
+
+> **Warning:** never commit `.env`. It is where your own settings and, later in the course, your secrets (keys, tokens, passwords) live. It is listed in `.gitignore` so Git ignores it. Do not remove it from there.
+
+## Folders
+
+| Folder     | What it is for |
+|------------|----------------|
+| `tests/`   | Your Playwright tests. It is empty for now; you will add tests during the week. |
+| `scripts/` | Helper scripts. `check.ts` checks your setup and is run by `npm run check`. |
+
+## Scripts
+
+- `npm run check`: checks your `.env` and that you can reach the Toolshop API.
+- `npm test`: runs the Playwright tests in `tests/`.
+
+## Day 6 TypeScript practice
+
+The `src/ts-basics/` folder contains small runnable examples for basic TypeScript types, tuples, functions, objects, type aliases, union types, and optional chaining. Run an example with `npx tsx src/ts-basics/<file>.ts`.
+
+`src/profile-validator.ts` demonstrates a profile type with optional settings and a safe `isNotified` function. Run it with `npx tsx src/profile-validator.ts`; it prints the notification value for three profiles, including profiles with missing optional data.
