@@ -69,3 +69,9 @@ Run these steps in order from a terminal.
 
 - `npm run check`: checks your `.env` and that you can reach the Toolshop API.
 - `npm test`: runs the Playwright tests in `tests/`.
+
+## Day 6 TypeScript practice
+
+The `src/ts-basics/` folder contains small runnable examples for basic TypeScript types, tuples, functions, objects, type aliases, union types, and optional chaining. Run an example with `npx tsx src/ts-basics/<file>.ts`.
+
+`src/profile-validator.ts` demonstrates a profile type with optional settings and a safe `isNotified` function. Run it with `npx tsx src/profile-validator.ts`; it prints the notification value for three profiles, including profiles with missing optional data.
