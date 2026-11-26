@@ -26,6 +26,7 @@ test("invalid login is rejected with the expected message", async ({ page }) => 
 
   await page.getByRole("textbox", { name: /email address/i }).fill("invalid@example.com");
   await page.getByRole("textbox", { name: /password/i }).fill("wrong-password");
+  //the login button here is a locator
   await page.getByRole("button", { name: "Login", exact: true }).click();
 
   await expect(page.getByText("Invalid email or password", { exact: true })).toBeVisible();
