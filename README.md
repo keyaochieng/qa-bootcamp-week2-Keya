@@ -1,77 +1,32 @@
-# QA Bootcamp Week 2 Starter
+# QA Bootcamp Week 2 — Playwright suite
 
-This is the starting point for Week 2 of the QA bootcamp. During the week you will use it to practise:
+This repository contains three Toolshop UI tests, an invalid-login page-object test, and three API tests. The cart test creates and cleans up its own data.
 
-- TypeScript
-- Playwright (UI testing)
-- Postman (API testing)
-- The Toolshop REST API
+## Setup and run
 
-There are no tests in this repo. You will write them during the week.
+After cloning the repository, run these three steps from the project folder:
 
-## Prerequisites
-
-Install these before you start:
-
-- [Node.js](https://nodejs.org/) (the current LTS version)
-- [Git](https://git-scm.com/)
-- [VS Code](https://code.visualstudio.com/)
-
-## Setup
-
-Run these steps in order from a terminal.
-
-1. Clone the repo and open the folder:
-
-   ```bash
-   git clone <repo-url>
-   cd qa-bootcamp-week2-starter
-   ```
-
-2. Install the dependencies:
-
+1. Install dependencies and the Chromium browser:
    ```bash
    npm install
-   ```
-
-3. Install the Chromium browser for Playwright:
-
-   ```bash
    npx playwright install chromium
    ```
-
-4. Copy `.env.example` to `.env`:
-
+2. Copy the example environment file:
    ```bash
    cp .env.example .env
    ```
-
-   `.env` already contains the Toolshop website URL (`TOOLSHOP_URL`) and the Toolshop API URL (`TOOLSHOP_API_URL`). Only change them if your trainer gives you different URLs.
-
-5. Check that your setup works:
-
+3. Run the full suite:
    ```bash
-   npm run check
+   npm test
    ```
 
-   This sends a GET request to the Toolshop API's `/products` endpoint (no login needed). If everything is set up correctly, it prints your Node version, the HTTP status (200), the number of products, and a last line that says `PASS`.
+The `.env.example` file supplies the Toolshop UI and API URLs. The tests use the API's full URL for API requests. Do not commit your `.env` file.
 
-> **Warning:** never commit `.env`. It is where your own settings and, later in the course, your secrets (keys, tokens, passwords) live. It is listed in `.gitignore` so Git ignores it. Do not remove it from there.
+## Test files
 
-## Folders
+- `tests/toolshop.spec.ts` — homepage title, product search, and invalid login.
+- `tests/invalid-login-page-object.spec.ts` — invalid login using a page object.
+- `tests/toolshop-api.spec.ts` — products API check.
+- `tests/toolshop-carts-api.spec.ts` — cart creation, product addition, cleanup, and unknown-cart response.
 
-| Folder     | What it is for |
-|------------|----------------|
-| `tests/`   | Your Playwright tests. It is empty for now; you will add tests during the week. |
-| `scripts/` | Helper scripts. `check.ts` checks your setup and is run by `npm run check`. |
-
-## Scripts
-
-- `npm run check`: checks your `.env` and that you can reach the Toolshop API.
-- `npm test`: runs the Playwright tests in `tests/`.
-
-## Day 6 TypeScript practice
-
-The `src/ts-basics/` folder contains small runnable examples for basic TypeScript types, tuples, functions, objects, type aliases, union types, and optional chaining. Run an example with `npx tsx src/ts-basics/<file>.ts`.
-
-`src/profile-validator.ts` demonstrates a profile type with optional settings and a safe `isNotified` function. Run it with `npx tsx src/profile-validator.ts`; it prints the notification value for three profiles, including profiles with missing optional data.
+The optional Cucumber scenario was not added; the suite work took priority.
